@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { LucideIcon } from 'lucide-react';
 
@@ -26,7 +26,7 @@ export const SocialConnectCard: React.FC<SocialConnectCardProps> = ({
     error
 }) => {
 
-    const fieldVariants = {
+    const fieldVariants = useMemo(() => ({
         hidden: {
             opacity: 0,
             y: 20,
@@ -41,7 +41,7 @@ export const SocialConnectCard: React.FC<SocialConnectCardProps> = ({
                 ease: 'easeOut' as const
             }
         }
-    };
+    }), []);
 
     return (
         <motion.div 

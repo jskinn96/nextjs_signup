@@ -1,10 +1,34 @@
 'use client';
 
-import React from 'react';
+import React, { useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { Facebook, Instagram, Github } from 'lucide-react';
 import { SocialConnectCard } from '@/components/ui/SocialConnectCard';
 import { useSignUpErrors, useSignUpFormData, useSignUpLoading, useSignUpStore } from '@/stores';
+
+const socialPlatforms = [
+    {
+        icon: Facebook,
+        name: 'Facebook',
+        field: 'facebook' as const,
+        placeholder: 'Facebook 계정명',
+        color: 'from-blue-600 to-blue-700'
+    },
+    {
+        icon: Instagram,
+        name: 'Instagram',
+        field: 'instagram' as const,
+        placeholder: 'Instagram 계정명',
+        color: 'from-pink-500 to-purple-600'
+    },
+    {
+        icon: Github,
+        name: 'GitHub',
+        field: 'github' as const,
+        placeholder: 'GitHub 계정명',
+        color: 'from-gray-700 to-gray-800'
+    }
+];
 
 export const Step3: React.FC = () => {
 
@@ -16,7 +40,7 @@ export const Step3: React.FC = () => {
     //g 스토어 셋
     const setField = useSignUpStore((state) => state.setField);
 
-    const stepVariants = {
+    const stepVariants = useMemo(() => ({
         hidden: {
             opacity: 0,
             x: 100
@@ -37,31 +61,7 @@ export const Step3: React.FC = () => {
                 duration: .3
             }
         }
-    };
-
-    const socialPlatforms = [
-        {
-            icon: Facebook,
-            name: 'Facebook',
-            field: 'facebook' as const,
-            placeholder: 'Facebook 계정명',
-            color: 'from-blue-600 to-blue-700'
-        },
-        {
-            icon: Instagram,
-            name: 'Instagram',
-            field: 'instagram' as const,
-            placeholder: 'Instagram 계정명',
-            color: 'from-pink-500 to-purple-600'
-        },
-        {
-            icon: Github,
-            name: 'GitHub',
-            field: 'github' as const,
-            placeholder: 'GitHub 계정명',
-            color: 'from-gray-700 to-gray-800'
-        }
-    ];
+    }), []);
 
     return (
         <motion.div 

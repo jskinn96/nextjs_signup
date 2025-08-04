@@ -1,12 +1,27 @@
 'use client';
 
-import React from 'react';
+import React, { useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { Calendar, Heart, User, Sparkles } from 'lucide-react';
 import { InputField } from '@/components/ui/InputField';
 import { SelectField } from '@/components/ui/SelectField';
 import { useSignUpErrors, useSignUpFormData, useSignUpLoading, useSignUpStore } from '@/stores';
 import { ISignUpFormData } from '@/types';
+
+const genderOptions = [
+    {
+        value: 'male', 
+        label: '남성'
+    },
+    {
+        value: 'female', 
+        label: '여성'
+    },
+    {
+        value: 'other', 
+        label: '기타'
+    }
+];
 
 export const Step2: React.FC = () => {
 
@@ -18,7 +33,7 @@ export const Step2: React.FC = () => {
     //g 스토어 셋
     const setField = useSignUpStore((state) => state.setField);
 
-    const stepVariants = {
+    const stepVariants = useMemo(() => ({
         hidden: {
             opacity: 0, 
             x: 100
@@ -34,9 +49,9 @@ export const Step2: React.FC = () => {
                 duration: .3
             }
         }
-    };
+    }), []);
 
-    const fieldVariants = {
+    const fieldVariants = useMemo(() => ({
         hidden: {
             opacity: 0, 
             y: 20, 
@@ -47,29 +62,14 @@ export const Step2: React.FC = () => {
             y: 0, 
             scale: 1
         }
-    };
+    }), []);
 
-    const areaBgVariants = {
+    const areaBgVariants = useMemo(() => ({
         active: {
             opacity: [0.2, 0.4, 0.2],
             scale: [1, 1.1, 1]
         }
-    };
-
-    const genderOptions = [
-        {
-            value: 'male', 
-            label: '남성'
-        },
-        {
-            value: 'female', 
-            label: '여성'
-        },
-        {
-            value: 'other', 
-            label: '기타'
-        }
-    ];
+    }), []);
 
     return (
         <motion.div 

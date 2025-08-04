@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { motion } from 'framer-motion';
 import { User, Lock, Mail, Phone, Eye, EyeOff } from 'lucide-react';
 import { InputField } from '@/components/ui/InputField';
@@ -17,7 +17,7 @@ export const Step1: React.FC = () => {
     //g 스토어 셋
     const setField = useSignUpStore((state) => state.setField);
     
-    const stepVariants = {
+    const stepVariants = useMemo(() => ({
         hidden: {
             opacity: 0,
             x: 100
@@ -33,7 +33,7 @@ export const Step1: React.FC = () => {
                 duration: 0.3
             }
         }
-    };
+    }), []);
 
     return (
         <motion.div 

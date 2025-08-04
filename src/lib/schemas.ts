@@ -60,7 +60,7 @@ export const step3Schema = z.object({
         .refine((handle) => {
             if (!handle) return true;
             return /^[a-zA-Z0-9._]+$/.test(handle);
-        }, '올바른 Facebook URL을 입력해주세요'),
+        }, '올바른 Facebook 계정명을 입력해주세요'),
 
     instagram: z
         .string()

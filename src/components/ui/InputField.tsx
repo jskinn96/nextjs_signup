@@ -1,6 +1,6 @@
 'use client';
 
-import React, { forwardRef } from 'react';
+import React, { forwardRef, useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { LucideIcon } from 'lucide-react';
 
@@ -33,7 +33,7 @@ export const InputField = forwardRef<HTMLInputElement, InputFieldProps>(({
     ...props
 }, ref) => {
 
-    const fieldVariants = {
+    const fieldVariants = useMemo(() => ({
         hidden: {
             opacity: 0, 
             y: 20, 
@@ -48,9 +48,9 @@ export const InputField = forwardRef<HTMLInputElement, InputFieldProps>(({
                 ease: 'easeOut' as const
             }
         }
-    };
+    }), []);
 
-    const bgVariants = {
+    const bgVariants = useMemo(() => ({
         active: {
             opacity: [.2, .4, .2],
             scale: [1, 1.1, 1],
@@ -60,7 +60,7 @@ export const InputField = forwardRef<HTMLInputElement, InputFieldProps>(({
                 ease: 'easeInOut' as const
             }
         }
-    };
+    }), []);
 
     return (
         <motion.div 

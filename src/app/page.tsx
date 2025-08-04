@@ -1,10 +1,26 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ArrowLeft, ArrowRight, CheckCircle, Sparkle } from 'lucide-react';
 import { useSignUpCanProceed, useSignUpCurrentStep, useSignUpErrors, useSignUpLoading, useSignUpStepChanging, useSignUpStore } from '@/stores';
 import { Step1, Step2, Step3 } from '@/components/signUp';
+
+//g 단계벨 제목, 설명
+const stepInfo = {
+    1: {
+        title: 'Welcome',
+        desc: '기본 정보를 입력해주세요'
+    },
+    2: {
+        title: 'About You', 
+        desc: '당신에 대해 알려주세요'
+    },
+    3: {
+        title: 'Connect', 
+        desc: '소셜 계정을 연결해보세요' 
+    }
+}
 
 export default function Home() {
 
@@ -35,7 +51,7 @@ export default function Home() {
     }, []);
 
     //g 메인 폼 애니메이션
-    const mainFormVariants = {
+    const mainFormVariants = useMemo(() => ({
         inactive: {
             opacity: 0,
             scale: .8
@@ -44,18 +60,18 @@ export default function Home() {
             opacity: 1,
             scale: 1,
         }
-    }
+    }), []);
 
     //g 폼 배경 애니메이션
-    const formBgVariants = {
+    const formBgVariants = useMemo(() => ({
         active: {
             opacity: [.3, .5, .3],
             scale: [1, 1.1, 1]
         }
-    }
+    }), []);
 
     //g 버튼 애니메이션
-    const buttonVariants = {
+    const buttonVariants = useMemo(() => ({
         idle: {
             scale: 1
         },
@@ -69,29 +85,14 @@ export default function Home() {
         tap: {
             scale: .95
         }
-    };
-
-    //g 단계벨 제목, 설명
-    const stepInfo = {
-        1: {
-            title: 'Welcome',
-            desc: '기본 정보를 입력해주세요'
-        },
-        2: {
-            title: 'About You', 
-            desc: '당신에 대해 알려주세요'
-        },
-        3: {
-            title: 'Connect', 
-            desc: '소셜 계정을 연결해보세요' 
-        }
-    }
+    }), []);
 
     //g 단계별 컴포넌트 렌더링
-    const renderCurrentStep = () => {
+    const renderCurrentStep = useMemo(() => {
 
         switch (currentStep) {
             
+            default:
             case 1:
                 return <Step1 />;
             
@@ -100,11 +101,8 @@ export default function Home() {
             
             case 3:
                 return <Step3 />;
-            
-            default:
-                return <Step1 />;
         }
-    }
+    }, [currentStep]);
 
     //g 이전 단계
     const handlePrevious = async () => {
@@ -367,7 +365,7 @@ export default function Home() {
                                 duration: 0.4
                             }}
                         >
-                            {renderCurrentStep()}
+                            {renderCurrentStep}
                         </motion.div>
                     </AnimatePresence>
 
